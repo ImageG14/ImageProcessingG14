@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy app files into the container
-#COPY best-model.torchscript requirements.txt app.py /app/
+#COPY best-model.torchscript requirements.txt main.py /app/
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
