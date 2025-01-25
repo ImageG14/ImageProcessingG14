@@ -1,0 +1,34 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 # Use a base Python image\
+FROM python:3.9-slim\
+\
+# Set the working directory in the container\
+WORKDIR /app\
+\
+# Install system dependencies for OpenCV\
+RUN apt-get update && apt-get install -y \\\
+\'a0\'a0\'a0 libgl1-mesa-glx libglib2.0-0 \\\
+\'a0\'a0\'a0 && rm -rf /var/lib/apt/lists/*\
+\
+# Copy app files into the container\
+#COPY best-model.torchscript requirements.txt app.py /app/ \
+\
+# Install Python dependencies\
+RUN pip install --no-cache-dir -r requirements.txt\
+\
+# Set the environment variable (Cloud Run uses this to configure the port)\
+ENV PORT=8080\
+\
+# Expose the port that Gradio will run on\
+EXPOSE 8080\
+\
+# Command to run the app\
+CMD ["python", "app.py"]\'a0}
